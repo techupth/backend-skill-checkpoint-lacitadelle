@@ -1,5 +1,6 @@
-import express from "express";
-import questionRouter from "./src/routes/questionsRouter.js";
+import express from 'express';
+import questionsRouter from './src/routes/questionsRouter.js';
+import answersRouter from './src/routes/answersRouter.js';
 
 async function init() {
   const app = express();
@@ -8,15 +9,12 @@ async function init() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use("/questions", questionRouter);
+  app.use('/questions', questionsRouter);
+  app.use('/answers', answersRouter);
 
-  app.get("/", (req, res) => {
-    return res.json({ message: "Please consult our API documentation" });
-  });
+  app.get('/', (req, res) => res.json({ message: 'Please consult our API documentation' }));
 
-  app.get("*", (req, res) => {
-    return res.status(404).json("Not found");
-  });
+  app.get('*', (req, res) => res.status(404).json('Not found'));
 
   app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
